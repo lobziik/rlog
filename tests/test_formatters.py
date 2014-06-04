@@ -1,5 +1,4 @@
 # coding: utf-8
-import pytest
 import logging
 import ujson as json
 
