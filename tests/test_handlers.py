@@ -4,7 +4,7 @@ import redis
 import time
 import ujson as json
 
-from rlog.handlers import RedisListHandler
+from rlog import RedisListHandler
 
 
 def wait_for_message(pubsub, timeout=0.1, ignore_subscribe_messages=False):
