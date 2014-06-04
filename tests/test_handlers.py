@@ -1,9 +1,10 @@
 # coding: utf-8
 import logging
-from rlog.handlers import RedisListHandler
-import ujson as json
-import time
 import redis
+import time
+import ujson as json
+
+from rlog.handlers import RedisListHandler
 
 
 def wait_for_message(pubsub, timeout=0.1, ignore_subscribe_messages=False):
