@@ -6,4 +6,9 @@ services:
   - redis-server
 install:
   - pip install -e .
-script: "python setup.py test"
+  - pip install coveralls pytest-cov==1.6
+
+script: py.test --cov . --cov-config .coveragerc
+
+after_success:
+  coveralls
