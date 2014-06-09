@@ -2,8 +2,6 @@
 # coding: utf-8
 import sys
 
-from rlog import __version__
-
 try:
     from setuptools import setup
     from setuptools.command.test import test as TestCommand
@@ -28,11 +26,11 @@ except ImportError:
 
 setup(
     name='rlog',
-    version=__version__,
+    version='0.0.1',
     description='Small handler and formatter for using python logging with Redis',
     url='https://github.com/lobziik/rlog',
-    tests_require=['pytest>=2.5.0'],
     install_requires=['redis', 'ujson'],
+    tests_require=['pytest>=2.5.0'],
     packages=['rlog'],
-    cmdclass={'test': PyTest},
+    cmdclass={'test': PyTest}
 )
