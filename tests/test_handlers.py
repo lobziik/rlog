@@ -17,7 +17,6 @@ def wait_for_message(pubsub, timeout=0.1, ignore_subscribe_messages=False):
             return message
         time.sleep(0.01)
         now = time.time()
-    return None
 
 
 def test_log_publish(redis_logger):
