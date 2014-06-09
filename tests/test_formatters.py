@@ -23,4 +23,7 @@ def test_exception_info():
         1 / 0
     except ZeroDivisionError:
         data = get_result_record(exc_info=sys.exc_info())
-        assert 'ZeroDivisionError: division by zero' in data['exc_info']
+        if sys.version_info[0] >= 3:
+            assert 'ZeroDivisionError: division by zero' in data['exc_info']
+        else:
+            assert 'ZeroDivisionError: division or modulo by zero' in data['exc_info']
