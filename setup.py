@@ -31,7 +31,6 @@ setup(
     url='https://github.com/lobziik/rlog',
     tests_require=['pytest>=2.5.0', 'mock'],
     install_requires=['redis', 'ujson'],
-    tests_require=['pytest>=2.5.0'],
     packages=['rlog'],
     cmdclass={'test': PyTest}
 )
