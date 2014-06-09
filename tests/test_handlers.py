@@ -1,10 +1,17 @@
 # coding: utf-8
 import logging
 import redis
+import sys
 import time
 import ujson as json
 
 from rlog import RedisListHandler
+
+
+if sys.version_info[0] >= 3:
+    from unittest.mock import patch, Mock
+else:
+    from mock import patch, Mock
 
 
 def wait_for_message(pubsub, timeout=0.1, ignore_subscribe_messages=False):
@@ -47,3 +54,18 @@ def test_log_list_rotator():
     p.lrange('test', 0, -1)
     data = p.execute()[0]
     assert len(data) == 1
+
+
+def test_redis_emit_error(redis_logger):
+    handler = redis_logger.handlers[0]
+    with patch.object(handler.redis_client, 'publish') as mock_publish:
+        mock_publish.side_effect = redis.RedisError()
+        redis_logger.warn('test2')
+
+
+def test_redis_list_emit_error():
+    logger = logging.getLogger()
+    handler = RedisListHandler(key='test', db=1, max_messages=2)
+    handler.redis_client.pipeline = Mock(side_effect=redis.RedisError())
+    logger.addHandler(handler)
+    logger.warn('test')
