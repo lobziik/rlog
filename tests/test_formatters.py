@@ -1,14 +1,26 @@
 # coding: utf-8
 import logging
 import ujson as json
+import sys
 
 from rlog.formatters import JSONFormatter
 
 
-def test_formatter():
-    record = logging.makeLogRecord({})
+def get_result_record(**kwargs):
+    record = logging.makeLogRecord(kwargs)
     formatter = JSONFormatter()
     formatted_record = formatter.format(record)
-    data = json.loads(formatted_record)
-    assert data
+    return json.loads(formatted_record)
 
+
+def test_formatter():
+    data = get_result_record(msg='Test %s', args=('format', ))
+    assert data['message'] == 'Test format'
+
+
+def test_exception_info():
+    try:
+        1 / 0
+    except ZeroDivisionError:
+        data = get_result_record(exc_info=sys.exc_info())
+        assert 'ZeroDivisionError: division by zero' in data['exc_info']
