@@ -2,3 +2,5 @@
 .idea/*
 *.egg-info
 *.egg-info/*
+dist
+dist/*

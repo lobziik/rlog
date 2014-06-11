@@ -14,6 +14,10 @@ setup(
     packages=['rlog', 'tests'],
     license='MIT',
     keywords=['Redis', 'logging', 'log', 'logs'],
+    author="lobziik",
+    author_email="lobziiko.o@gmail.com",
+    maintainer="lobziik",
+    maintainer_email="lobziiko.o@gmail.com",
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
