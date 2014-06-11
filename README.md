@@ -8,6 +8,20 @@ This is cleared and simplified version of [python-redis-log](https://github.com/
 [![Build Status](https://travis-ci.org/lobziik/rlog.svg?branch=master)](https://travis-ci.org/lobziik/rlog)
 [![Coverage Status](https://coveralls.io/repos/lobziik/rlog/badge.png?branch=master)](https://coveralls.io/r/lobziik/rlog?branch=master)
 
+Installation
+------------
+
+The current stable release ::
+
+    pip install rlog
+
+or ::
+
+    easy_install rlog
+    
+or from source ::
+
+    $ sudo python setup.py install
 
 Usage
 -----
