@@ -8,7 +8,7 @@ import ujson as json
 from rlog import RedisListHandler
 
 
-if sys.version_info[0] >= (3, 3):
+if sys.version_info >= (3, 3):
     from unittest.mock import patch, Mock
 else:
     from mock import patch, Mock
