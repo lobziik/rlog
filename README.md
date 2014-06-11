@@ -11,15 +11,15 @@ This is cleared and simplified version of [python-redis-log](https://github.com/
 Installation
 ------------
 
-The current stable release ::
+The current stable release:
 
     pip install rlog
 
-or ::
+or:
 
     easy_install rlog
     
-or from source ::
+or from source:
 
     $ sudo python setup.py install
 
