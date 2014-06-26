@@ -4,13 +4,19 @@ import sys
 from setuptools import setup
 
 
+conditional_kwargs = {'install_requires': ['redis'], 'tests_require': ['pytest>=2.5.0']}
+
+if not hasattr(sys, 'pypy_version_info'):
+    conditional_kwargs['install_requires'].append('ujson')
+
+if sys.version_info < (3, 3):
+    conditional_kwargs['tests_require'].append('mock')
+
 setup(
     name='rlog',
     version='0.0.2',
     description='Small handler and formatter for using python logging with Redis',
     url='https://github.com/lobziik/rlog',
-    tests_require=['pytest>=2.5.0', 'mock'],
-    install_requires=['redis', 'ujson'],
     packages=['rlog', 'tests'],
     license='MIT',
     keywords=['Redis', 'logging', 'log', 'logs'],
@@ -31,5 +37,6 @@ setup(
         'Programming Language :: Python :: 3.2'
         'Programming Language :: Python :: 3.3'
         'Programming Language :: Python :: 3.4'
-    ]
+    ],
+    **conditional_kwargs
 )

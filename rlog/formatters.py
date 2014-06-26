@@ -1,15 +1,10 @@
 # coding: utf-8
 import logging
-import sys
 import getpass
 from datetime import datetime
 from socket import gethostname
 
-import ujson as json
-
-
-if sys.version_info[0] >= 3:
-    unicode = str  # python 3 not have unicode
+from ._compat import json, text_type
 
 
 class JSONFormatter(logging.Formatter):
@@ -27,7 +22,7 @@ class JSONFormatter(logging.Formatter):
             time=datetime.now(),
             host=gethostname(),
             message=msg,
-            args=tuple(unicode(arg) for arg in record.args)
+            args=tuple(text_type(arg) for arg in record.args)
         )
 
         if 'exc_info' in data and data['exc_info']:
