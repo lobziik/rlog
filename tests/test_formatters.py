@@ -1,8 +1,8 @@
 # coding: utf-8
 import logging
-import ujson as json
 import sys
 
+from rlog._compat import json
 from rlog.formatters import JSONFormatter
 
 

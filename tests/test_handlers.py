@@ -2,10 +2,9 @@
 import logging
 import redis
 import time
-import ujson as json
 
 from rlog import RedisListHandler
-from rlog._compat import patch, Mock
+from rlog._compat import json, patch, Mock
 
 
 def wait_for_message(pubsub, timeout=0.1, ignore_subscribe_messages=False):
