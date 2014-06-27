@@ -3,12 +3,10 @@
 import sys
 from setuptools import setup
 
-from rlog._compat import PYPY
-
 
 conditional_kwargs = {'install_requires': ['redis'], 'tests_require': ['pytest>=2.5.0']}
 
-if not PYPY:
+if not hasattr(sys, 'pypy_translation_info'):
     conditional_kwargs['install_requires'].append('ujson')
 
 if sys.version_info < (3, 3):
