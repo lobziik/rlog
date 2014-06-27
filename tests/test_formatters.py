@@ -2,7 +2,7 @@
 import logging
 import sys
 
-from rlog._compat import json
+from rlog._compat import json, PY3, PYPY
 from rlog.formatters import JSONFormatter
 
 
@@ -23,7 +23,7 @@ def test_exception_info():
         1 / 0
     except ZeroDivisionError:
         data = get_result_record(exc_info=sys.exc_info())
-        if sys.version_info[0] >= 3:
+        if PY3 or PYPY:
             assert 'ZeroDivisionError: division by zero' in data['exc_info']
         else:
             assert 'ZeroDivisionError: integer division or modulo by zero' in data['exc_info']
