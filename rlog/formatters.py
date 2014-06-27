@@ -1,7 +1,6 @@
 # coding: utf-8
 import logging
 import getpass
-from datetime import datetime
 from socket import gethostname
 
 from ._compat import json, text_type
@@ -19,7 +18,6 @@ class JSONFormatter(logging.Formatter):
 
         data.update(
             username=getpass.getuser(),
-            time=datetime.now(),
             host=gethostname(),
             message=msg,
             args=tuple(text_type(arg) for arg in record.args)
