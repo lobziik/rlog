@@ -23,7 +23,10 @@ def test_exception_info():
         1 / 0
     except ZeroDivisionError:
         data = get_result_record(exc_info=sys.exc_info())
-        if PY3 or PYPY:
-            assert 'ZeroDivisionError: division by zero' in data['exc_info']
+        if PY3:
+            error_string = 'ZeroDivisionError: division by zero'
+        elif PYPY:
+            error_string = 'ZeroDivisionError: integer division by zero'
         else:
-            assert 'ZeroDivisionError: integer division or modulo by zero' in data['exc_info']
+            error_string = 'ZeroDivisionError: integer division or modulo by zero'
+        assert error_string in data['exc_info']
