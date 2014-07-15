@@ -19,7 +19,7 @@ class JSONFormatter(logging.Formatter):
         data.update(
             username=getpass.getuser(),
             host=gethostname(),
-            message=msg,
+            msg=msg,
             args=tuple(text_type(arg) for arg in record.args)
         )
 

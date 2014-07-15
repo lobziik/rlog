@@ -15,7 +15,7 @@ def get_result_record(**kwargs):
 
 def test_formatter():
     data = get_result_record(msg='Test %s', args=('format', ))
-    assert data['message'] == 'Test format'
+    assert data['msg'] == 'Test format'
 
 
 def test_exception_info():
