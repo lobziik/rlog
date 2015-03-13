@@ -14,7 +14,7 @@ if sys.version_info < (3, 3):
 
 setup(
     name='rlog',
-    version='0.0.4',
+    version='0.1',
     description='Small handler and formatter for using python logging with Redis',
     url='https://github.com/lobziik/rlog',
     packages=['rlog', 'tests'],

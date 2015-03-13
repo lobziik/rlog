@@ -1,4 +1,4 @@
-include README.md
+include README.txt
 exclude __pycache__
 exclude *.pyc
 recursive-include tests *

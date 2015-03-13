@@ -1,3 +1,3 @@
-[report]
+[run]
 omit = */tests/*
        setup.py
