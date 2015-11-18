@@ -3,6 +3,7 @@ import logging
 import redis
 import time
 
+from rlog import RedisHandler
 from rlog import RedisListHandler
 from rlog._compat import json, patch, Mock
 
@@ -33,6 +34,26 @@ def test_log_publish(redis_logger):
     assert 'msg' in message
     assert message['levelname'] == 'WARNING'
     assert message['msg'] == 'test'
+
+
+def test_log_publish_custom_formatter(clean_logger):
+    logger = clean_logger
+    logger.addHandler(RedisHandler(
+        channel='test',
+        formatter=logging.Formatter(
+            '%(asctime)s|%(name)s|%(levelname)s|%(message)s')))
+
+    redis_client = redis.Redis()
+    p = redis_client.pubsub()
+    p.subscribe('test')
+
+    logger.warn('test')
+
+    message = wait_for_message(p, 1, True)['data']
+
+    ts, name, levelname, msg = message.split(b'|')
+    assert levelname == b'WARNING'
+    assert msg == b'test'
 
 
 def test_log_list_rotator():
