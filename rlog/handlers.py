@@ -10,14 +10,14 @@ class RedisHandler(logging.Handler):
     Publish messages to redis channel.
     """
 
-    def __init__(self, channel, redis_client=None, host='localhost', port=6379,
-                 password=None, db=0, level=logging.NOTSET):
+    def __init__(self, channel, redis_client=redis.Redis(),
+                 level=logging.NOTSET):
         """
         Create a new logger for the given channel and redis_client.
         """
         logging.Handler.__init__(self, level)
         self.channel = channel
-        self.redis_client = redis_client or redis.Redis(host=host, port=port, password=password, db=db)
+        self.redis_client = redis_client
         self.formatter = JSONFormatter()
 
     def emit(self, record):
@@ -32,14 +32,14 @@ class RedisHandler(logging.Handler):
 
 class RedisListHandler(logging.Handler):
 
-    def __init__(self, key, max_messages, redis_client=None, host='localhost', port=6379,
-                 password=None, db=0, level=logging.NOTSET):
+    def __init__(self, key, max_messages=None, redis_client=redis.Redis(),
+                 level=logging.NOTSET):
         """
         Create a new logger for the given key and redis_client.
         """
         logging.Handler.__init__(self, level)
         self.key = key
-        self.redis_client = redis_client or redis.Redis(host=host, port=port, password=password, db=db)
+        self.redis_client = redis_client
         self.formatter = JSONFormatter()
         self.max_messages = max_messages
 

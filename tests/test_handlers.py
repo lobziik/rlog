@@ -37,7 +37,9 @@ def test_log_publish(redis_logger):
 
 def test_log_list_rotator():
     logger = logging.getLogger()
-    logger.addHandler(RedisListHandler(key='test', db=1, max_messages=2))
+    logger.addHandler(
+        RedisListHandler(
+            key='test', max_messages=2, redis_client=redis.Redis(db=1)))
 
     redis_client = redis.Redis(db=1)
     redis_client.delete('test')
@@ -58,7 +60,8 @@ def test_redis_emit_error(redis_logger):
 
 def test_redis_list_emit_error():
     logger = logging.getLogger()
-    handler = RedisListHandler(key='test', db=1, max_messages=2)
+    handler = RedisListHandler(
+        key='test', max_messages=2, redis_client=redis.Redis(db=1))
     handler.redis_client.pipeline = Mock(side_effect=redis.RedisError())
     logger.addHandler(handler)
     logger.warn('test')
