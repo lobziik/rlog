@@ -34,7 +34,7 @@ class RedisHandler(logging.Handler):
 class RedisListHandler(logging.Handler):
 
     def __init__(self, key, redis_client=redis.Redis(),
-                 max_messages=None,
+                 max_messages=None, ttl=None,
                  formatter=JSONFormatter(),
                  level=logging.NOTSET):
         """
@@ -45,6 +45,7 @@ class RedisListHandler(logging.Handler):
         self.redis_client = redis_client
         self.formatter = formatter
         self.max_messages = max_messages
+        self.ttl = ttl
 
     def emit(self, record):
         """
@@ -58,5 +59,7 @@ class RedisListHandler(logging.Handler):
                 p.execute()
             else:
                 self.redis_client.rpush(self.key, self.format(record))
+            if self.ttl:
+                self.redis_client.expire(self.key, self.ttl)
         except redis.RedisError:
             pass

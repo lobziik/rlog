@@ -86,3 +86,31 @@ def test_redis_list_emit_error():
     handler.redis_client.pipeline = Mock(side_effect=redis.RedisError())
     logger.addHandler(handler)
     logger.warn('test')
+
+
+def test_redis_list_ttl_not_expired(clean_logger):
+    logger = clean_logger
+    handler = RedisListHandler(key='test', ttl=60)
+    logger.addHandler(handler)
+    logger.warn('test')
+
+    redis_client = redis.Redis()
+    p = redis_client.pipeline()
+    p.lrange('test', 0, -1)
+    data = p.execute()[0]
+    assert len(data) == 1
+
+
+def test_redis_list_ttl_expired(clean_logger):
+    logger = clean_logger
+    handler = RedisListHandler(key='test', ttl=1)
+    logger.addHandler(handler)
+    logger.warn('test')
+
+    time.sleep(2)
+
+    redis_client = redis.Redis()
+    p = redis_client.pipeline()
+    p.lrange('test', 0, -1)
+    data = p.execute()[0]
+    assert len(data) == 0
