@@ -10,8 +10,6 @@ class RedisHandler(logging.Handler):
     Publish messages to redis channel.
     """
 
-    def __init__(self, channel, redis_client=None,
-                 formatter=JSONFormatter(), level=logging.NOTSET, **kwargs):
     def __init__(self, channel, redis_client=redis.Redis(),
                  formatter=JSONFormatter(),
                  level=logging.NOTSET):
