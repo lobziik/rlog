@@ -10,15 +10,15 @@ class RedisHandler(logging.Handler):
     Publish messages to redis channel.
     """
 
-    def __init__(self, channel, redis_client=redis.Redis(),
+    def __init__(self, channel, redis_client=None,
                  formatter=JSONFormatter(),
-                 level=logging.NOTSET):
+                 level=logging.NOTSET, **redis_kwargs):
         """
         Create a new logger for the given channel and redis_client.
         """
         logging.Handler.__init__(self, level)
         self.channel = channel
-        self.redis_client = redis_client
+        self.redis_client = redis_client or redis.Redis(**redis_kwargs)
         self.formatter = formatter
 
     def emit(self, record):
@@ -33,16 +33,15 @@ class RedisHandler(logging.Handler):
 
 class RedisListHandler(logging.Handler):
 
-    def __init__(self, key, redis_client=redis.Redis(),
-                 max_messages=None, ttl=None,
-                 formatter=JSONFormatter(),
-                 level=logging.NOTSET):
+    def __init__(self, key, max_messages=None, redis_client=None,
+                 formatter=JSONFormatter(), ttl=None,
+                 level=logging.NOTSET, **redis_kwargs):
         """
         Create a new logger for the given key and redis_client.
         """
         logging.Handler.__init__(self, level)
         self.key = key
-        self.redis_client = redis_client
+        self.redis_client = redis_client or redis.Redis(**redis_kwargs)
         self.formatter = formatter
         self.max_messages = max_messages
         self.ttl = ttl
