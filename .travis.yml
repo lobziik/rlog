@@ -1,8 +1,8 @@
 language: python
 python:
+  - "3.5"
   - "3.4"
   - "3.3"
-  - "3.2"
   - "2.7"
   - "2.6"
   - "pypy"
@@ -10,7 +10,7 @@ services:
   - redis-server
 install:
   - pip install -e .
-  - pip install coveralls pytest-cov==1.8.1
+  - pip install coveralls pytest-cov>=2.2.0
 
 script: py.test --cov . --cov-config .coveragerc
 
