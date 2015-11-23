@@ -32,11 +32,17 @@ Usage
     >>> logger.warning("Spam!")
     >>> logger.error("Eggs!")
 
-Redis clients subscribed to ``test`` will get a json log record.
+Redis clients subscribed to ``test`` will get a json log record by default.
+
+_RedisHandler_ and _RedisListHandler_ also accepted all redis client settings as kwargs. More info about client settings
+you may find in [redis-py](https://github.com/andymccurdy/redis-py) documentation.
+
+Custom formatters also supported, handlers accept this as _formatter_ keyword argument. JSONFormatter from this package
+used as default. 
 
 You can use the ``redis-cli`` shell that comes with ``redis`` to test this.  At
 the shell prompt, type ``subscribe my:channel`` (replacing with the channel
-name you choose, of course).  You will see subsequent log data printed in the
+name you choose, of course). You will see subsequent log data printed in the
 shell.
 
 
