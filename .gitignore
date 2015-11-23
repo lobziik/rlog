@@ -4,4 +4,7 @@
 *.egg-info/*
 dist
 dist/*
+.tox
+.cache
 MANIFEST.in
+update_pypi_package.sh
