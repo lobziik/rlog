@@ -13,11 +13,6 @@ else:
     text_type = str
 
 try:
-    from unittest.mock import patch, Mock
-except ImportError:
-    from mock import patch, Mock
-
-try:
     import ujson as json
 except ImportError:
     import json
