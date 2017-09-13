@@ -16,5 +16,5 @@ See: [PR #8](https://github.com/lobziik/rlog/pull/8)
 
 * [Issue #9](https://github.com/lobziik/rlog/issues/9)
 * Added python 3.6 to travis build
-* Drop Python 3.3, 3.4 from travis build
+* Drop Python 3.3 from travis build
 * Tox config changed
