@@ -2,4 +2,4 @@
 from rlog.handlers import RedisHandler, RedisListHandler
 
 
-__version__ = '0.1'
+__version__ = '0.3.1'
