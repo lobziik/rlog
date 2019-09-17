@@ -27,7 +27,7 @@ def test_log_publish(redis_logger):
     p = redis_client.pubsub()
     p.subscribe('test')
 
-    redis_logger.warn('test')
+    redis_logger.warning('test')
 
     message = json.loads(wait_for_message(p, 1, True)['data'])
 
@@ -48,7 +48,7 @@ def test_log_publish_custom_formatter(clean_logger):
     p = redis_client.pubsub()
     p.subscribe('test')
 
-    logger.warn('test')
+    logger.warning('test')
 
     message = wait_for_message(p, 1, True)['data']
 
@@ -66,7 +66,7 @@ def test_log_list_rotator():
     redis_client = redis.Redis(db=1)
     redis_client.delete('test')
 
-    logger.warn('test')
+    logger.warning('test')
     p = redis_client.pipeline()
     p.lrange('test', 0, -1)
     data = p.execute()[0]
@@ -77,7 +77,7 @@ def test_redis_emit_error(redis_logger):
     handler = redis_logger.handlers[0]
     with patch.object(handler.redis_client, 'publish') as mock_publish:
         mock_publish.side_effect = redis.RedisError()
-        redis_logger.warn('test2')
+        redis_logger.warning('test2')
 
 
 def test_redis_list_emit_error():
@@ -86,14 +86,14 @@ def test_redis_list_emit_error():
         key='test', max_messages=2, db=1)
     handler.redis_client.pipeline = Mock(side_effect=redis.RedisError())
     logger.addHandler(handler)
-    logger.warn('test')
+    logger.warning('test')
 
 
 def test_redis_list_ttl_not_expired(clean_logger):
     logger = clean_logger
     handler = RedisListHandler(key='test', ttl=60)
     logger.addHandler(handler)
-    logger.warn('test')
+    logger.warning('test')
 
     redis_client = redis.Redis()
     p = redis_client.pipeline()
@@ -106,7 +106,7 @@ def test_redis_list_ttl_expired(clean_logger):
     logger = clean_logger
     handler = RedisListHandler(key='test', ttl=1)
     logger.addHandler(handler)
-    logger.warn('test')
+    logger.warning('test')
 
     time.sleep(2)
 
